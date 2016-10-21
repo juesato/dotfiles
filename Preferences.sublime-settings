@@ -1,0 +1,19 @@
+{
+	"auto_find_in_selection": true,
+	"binary_file_patterns":
+	[
+		"*.bag",
+		"*.caffemodel",
+		".tags",
+		"*.stderr",
+		"*.log"
+	],
+	"color_scheme": "Packages/User/SublimeLinter/Monokai (SL).tmTheme",
+	"font_size": 10,
+	"ignored_packages":
+	[
+		"Vintage"
+	],
+	"tab_size": 4,
+	"translate_tabs_to_spaces": true
+}

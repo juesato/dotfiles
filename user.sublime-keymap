@@ -1,0 +1,6 @@
+[
+	{ "keys": ["ctrl+tab"], "command": "next_view" },
+	{ "keys": ["ctrl+shift+tab"], "command": "prev_view" },
+	{ "keys": ["ctrl+space+left"], "command": "jump_back" }, // why does this break move forward/backwards by a word if it's ctrl+space+left?
+	{ "keys": ["ctrl+space+right"], "command": "jump_forward" },
+]
