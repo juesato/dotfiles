@@ -3,7 +3,6 @@ export HOTKEY_DIR="/home/juesato/hotkeys"
 export PATH=/usr/lib/ccache:$PATH
 
 export CCACHE_SLOPPINESS="pch_defines,time_macros"
-export TOPICS="--topic-file /home/juesato/cruise/ros/src/planning_stack/full_topic_list_1cameraonly.txt"
 
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
@@ -70,15 +69,6 @@ else
 fi
 unset color_prompt force_color_prompt
 
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
-
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -95,7 +85,6 @@ fi
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-alias kill_stack='pkill -f -9 "juesato/cruise/ros/"'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -120,19 +109,9 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-[ -s /home/juesato/cruise/setup/../ros/scripts/run_setup.sh ] && . /home/juesato/cruise/setup/../ros/scripts/run_setup.sh
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
-source ~/.fzf_ros/fzf_base.sh
-source ~/.fzf_ros/fzf_ros.sh
 
 alias makeflame='perf script | ~/FlameGraph/stackcollapse-perf.pl | ~/FlameGraph/flamegraph.pl > profile.svg'
 export PATH=/home/juesato/cruise/ros/scripts:/usr/lib/ccache:$PATH
-
-#export CC=clang-3.6
-#export CXX=clang++-3.6
-
 
 . /home/juesato/torch/install/bin/torch-activate
 
