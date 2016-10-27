@@ -7,4 +7,4 @@ mv "/home/juesato/.config/sublime-text-3/Packages/User/Preferences.sublime-setti
 ln -s $PWD/bashrc ~/.bashrc
 ln -s $PWD/user.sublime-keymap "/home/juesato/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap" 
 ln -s $PWD/Preferences.sublime-settings "/home/juesato/.config/sublime-text-3/Packages/User/Preferences.sublime-settings"
-
+ln -s $PWD/PackageControl.sublime-settings "/home/juesato/.config/sublime-text-3/Packages/User/Package\ Control.sublime-settings"
