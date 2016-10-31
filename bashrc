@@ -113,8 +113,6 @@ fi
 alias makeflame='perf script | ~/FlameGraph/stackcollapse-perf.pl | ~/FlameGraph/flamegraph.pl > profile.svg'
 export PATH=/home/juesato/cruise/ros/scripts:/usr/lib/ccache:$PATH
 
-. /home/juesato/torch/install/bin/torch-activate
-
 export LUA_PATH="/home/juesato/?/init.lua;$LUA_PATH"
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_rsa_personal
@@ -122,3 +120,13 @@ ssh-add ~/.ssh/id_rsa_personal
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda-7.5/lib64:/usr/local/cuda-7.5/extras/CUPTI/lib64"
 export CUDA_HOME=/usr/local/cuda-7.5
 alias cb='catkin build --summarize -w /home/juesato/cruise/ros -DCMAKE_EXPORT_COMPILE_COMMANDS=ON'
+
+
+echo `hostname`
+if [[ `hostname` == gcrgpu* ]]
+    then
+    echo "ON A GCR GPU"
+    . /var/storage/shared/mscog/t-jouesa/torch_installs/torch_`hostname`/install/bin/torch-activate
+else
+    . /home/juesato/torch/install/bin/torch-activate
+fi
