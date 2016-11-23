@@ -115,14 +115,18 @@ export PATH=/home/juesato/cruise/ros/scripts:/usr/lib/ccache:$PATH
 
 export LUA_PATH="/home/juesato/?/init.lua;$LUA_PATH"
 eval "$(ssh-agent -s)"
+
+if [[ `hostname` == gcrgpu* ]]
+then
+    rm  ~/.ssh/id_rsa_personal
+    cp /var/storage/shared/mscog/t-jouesa/.ssh/id_rsa_personal ~/.ssh/id_rsa_personal
+fi
 ssh-add ~/.ssh/id_rsa_personal
 
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda-7.5/lib64:/usr/local/cuda-7.5/extras/CUPTI/lib64"
 export CUDA_HOME=/usr/local/cuda-7.5
 alias cb='catkin build --summarize -w /home/juesato/cruise/ros -DCMAKE_EXPORT_COMPILE_COMMANDS=ON'
 
-
-echo `hostname`
 if [[ `hostname` == gcrgpu* ]]
     then
     echo "ON A GCR GPU"
