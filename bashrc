@@ -126,11 +126,19 @@ ssh-add ~/.ssh/id_rsa_personal
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda-7.5/lib64:/usr/local/cuda-7.5/extras/CUPTI/lib64"
 export CUDA_HOME=/usr/local/cuda-7.5
 alias cb='catkin build --summarize -w /home/juesato/cruise/ros -DCMAKE_EXPORT_COMPILE_COMMANDS=ON'
+alias ssh_r="ssh t-jouesa@rbgk40"
 
 if [[ `hostname` == gcrgpu* ]]
     then
     echo "ON A GCR GPU"
     . /var/storage/shared/mscog/t-jouesa/torch_installs/torch_`hostname`/install/bin/torch-activate
+elif [[ `hostname` == rbg* ]]
+    then
+    echo "ON AN RBG INSTANCE"
+    . /home/t-jouesa/torch_installs/torch_rbgk40/install/bin/torch-activate
 else
     . /home/juesato/torch/install/bin/torch-activate
 fi
+
+# added by Anaconda2 4.1.1 installer
+export PATH="/home/t-jouesa/anaconda2/bin:$PATH"
