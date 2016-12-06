@@ -117,7 +117,7 @@ export PATH=/home/juesato/cruise/ros/scripts:/usr/lib/ccache:$PATH
 
 eval "$(ssh-agent -s)"
 
-if [[ `hostname` == gcrgpu* ]]
+if [[ `hostname` == gcrgpu* ]] || [[ `hostname` == phlrr* ]] ;
 then
     rm  ~/.ssh/id_rsa_personal
     cp /var/storage/shared/mscog/t-jouesa/.ssh/id_rsa_personal ~/.ssh/id_rsa_personal
