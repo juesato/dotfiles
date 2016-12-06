@@ -113,7 +113,7 @@ fi
 alias makeflame='perf script | ~/FlameGraph/stackcollapse-perf.pl | ~/FlameGraph/flamegraph.pl > profile.svg'
 export PATH=/home/juesato/cruise/ros/scripts:/usr/lib/ccache:$PATH
 
-export LUA_PATH="/home/juesato/?/init.lua;$LUA_PATH"
+export LUA_PATH="./?.lua;/home/juesato/?/init.lua;$LUA_PATH"
 eval "$(ssh-agent -s)"
 
 if [[ `hostname` == gcrgpu* ]]
@@ -134,3 +134,6 @@ if [[ `hostname` == gcrgpu* ]] || [[ `hostname` == phlrr* ]] ;
 else
     . /home/juesato/torch/install/bin/torch-activate
 fi
+
+# added by Anaconda 2.3.0 installer
+export PATH="/var/storage/shared/mscog/t-jouesa/anaconda/bin:$PATH"
