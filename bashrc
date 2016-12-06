@@ -85,6 +85,8 @@ fi
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+alias cdme='cd /var/storage/shared/mscog/t-jouesa'
+alias killth="ps | grep luajit | grep -v grep | awk '{print $1}' | xargs -r kill -9"
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -113,7 +115,6 @@ fi
 alias makeflame='perf script | ~/FlameGraph/stackcollapse-perf.pl | ~/FlameGraph/flamegraph.pl > profile.svg'
 export PATH=/home/juesato/cruise/ros/scripts:/usr/lib/ccache:$PATH
 
-export LUA_PATH="./?.lua;/home/juesato/?/init.lua;$LUA_PATH"
 eval "$(ssh-agent -s)"
 
 if [[ `hostname` == gcrgpu* ]]
@@ -137,3 +138,9 @@ fi
 
 # added by Anaconda 2.3.0 installer
 export PATH="/var/storage/shared/mscog/t-jouesa/anaconda/bin:$PATH"
+export LUA_PATH="./?.lua;/home/juesato/?/init.lua;$LUA_PATH"
+export MPI_PREFIX="/usr/local/mpi"
+
+git config --global user.email "juesato@mit.edu"
+git config --global user.name "Jonathan Uesato"
+
