@@ -124,10 +124,12 @@ fi
 ssh-add ~/.ssh/id_rsa_personal
 
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda-7.5/lib64:/usr/local/cuda-7.5/extras/CUPTI/lib64"
-export CUDA_HOME=/usr/local/cuda-7.5
+
+export CUDA_HOME=/usr/local/cuda-8.0 # maybe important
 alias cb='catkin build --summarize -w /home/juesato/cruise/ros -DCMAKE_EXPORT_COMPILE_COMMANDS=ON'
 alias ssh_r="ssh t-jouesa@rbgk40"
 
+##### DEFINITELY IMPORTANT BELOW
 if [[ `hostname` == gcrgpu* ]]
     then
     echo "ON A GCR GPU"
@@ -142,3 +144,12 @@ fi
 
 # added by Anaconda2 4.1.1 installer
 export PATH="/home/t-jouesa/anaconda2/bin:$PATH"
+
+export MPI_PREFIX="/usr/lib/openmpi"
+
+export LD_LIBRARY_PATH="/usr/local/cuda:$LD_LIBRARY_PATH"
+
+export TORCH_HOME=`which th | sed s+/install/bin/th++g`
+export PATH=`echo "$PATH" | awk -v RS=':' -v ORS=":" '!a[$1]++'`
+export LD_LIBRARY_PATH=`echo "$LD_LIBRARY_PATH" | awk -v RS=':' -v ORS=":" '!a[$1]++'`
+
