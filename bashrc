@@ -86,7 +86,7 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 alias cdme='cd /var/storage/shared/mscog/t-jouesa'
-alias killth="ps | grep luajit | grep -v grep | awk '{print $1}' | xargs -r kill -9"
+alias killth="ps | grep luajit | grep -v grep | grep -v PID | grep -v pts | awk '{print \$1}' | xargs -r kill -9"
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -127,11 +127,14 @@ ssh-add ~/.ssh/id_rsa_personal
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda-7.5/lib64:/usr/local/cuda-7.5/extras/CUPTI/lib64"
 export CUDA_HOME=/usr/local/cuda-7.5
 alias cb='catkin build --summarize -w /home/juesato/cruise/ros -DCMAKE_EXPORT_COMPILE_COMMANDS=ON'
+alias clipf='xclip -sel clip <'
 
 if [[ `hostname` == gcrgpu* ]] || [[ `hostname` == phlrr* ]] ;
     then
     echo "ON A PHILLY MACHINE"
-    . /var/storage/shared/mscog/t-jouesa/torch_installs/torch_`hostname`/install/bin/torch-activate
+    if [[ ! -z `which th` ]]; then
+        . /var/storage/shared/mscog/t-jouesa/torch_installs/torch_`hostname`/install/bin/torch-activate
+    fi
 else
     . /home/juesato/torch/install/bin/torch-activate
 fi
@@ -139,8 +142,49 @@ fi
 # added by Anaconda 2.3.0 installer
 export PATH="/var/storage/shared/mscog/t-jouesa/anaconda/bin:$PATH"
 export LUA_PATH="./?.lua;/home/juesato/?/init.lua;$LUA_PATH"
-export MPI_PREFIX="/usr/local/mpi"
+# export MPI_PREFIX="/usr/local/mpi"
+# export PATH="/usr/local/mvapich2-2.2-gdr/bin/:$PATH"
+# export PATH="/usr/local/openmpi-2.0.1-withCuda/bin:$PATH"
+export MV2_PATH=/usr/local/mvapich2.2_cuda8.0_el7
+export MV2_USE_CUDA=1
+export PATH=`echo $PATH | sed s+/usr/local/mpi*++g | sed s+/usr/local/openmpi-1.10.3-withCuda++g | sed s+/usr/local/openmpi-2.0.1-withCuda++g`
+
+export LD_LIBRARY_PATH=`echo $LD_LIBRARY_PATH | sed s+/usr/local/mpi/lib++g | sed s+/usr/local/mpi/lib64++g`
+# export PATH=/usr/local/openmpi-1.10.3/bin:$PATH
+
+export TORCH_HOME=`which th | sed s+/install/bin/th++g`
+export TORCH_LIB_DIR=$TORCH_HOME/install/share/lua/5.1
+export PATH=`echo "$PATH" | awk -v RS=':' -v ORS=":" '!a[$1]++'`
+export LD_LIBRARY_PATH=`echo "$LD_LIBRARY_PATH" | awk -v RS=':' -v ORS=":" '!a[$1]++'`
 
 git config --global user.email "juesato@mit.edu"
 git config --global user.name "Jonathan Uesato"
+git config --global core.editor "vim"
 
+function gnews        {
+    gitnews="$(git status --porcelain)";
+    export gitnews;
+    gitreport="$(python -c 'from os import environ as e; gnew=e["gitnews"].split("\n");\
+    mods=[stat[3:] for stat in gnew if stat[0]=="M"];\
+    adds=[stat[3:] for stat in gnew if stat[0]=="A"];\
+    dels=[stat[3:] for stat in gnew if stat[0]=="D"];\
+    rens=[stat[3:] for stat in gnew if stat[0]=="R"];\
+    cops=[stat[3:] for stat in gnew if stat[0]=="C"];\
+    upds=[stat[3:] for stat in gnew if stat[0]=="U"];\
+    modreport=["Changed ".join(["",", ".join(statuslist)]) for statuslist in [mods] if len(mods)>0];\
+    addreport=["Added ".join(["",", ".join(statuslist)]) for statuslist in [adds] if len(adds)>0];\
+    delreport=["Deleted ".join(["",", ".join(statuslist)]) for statuslist in [dels] if len(dels)>0];\
+    renreport=["Renamed ".join(["",", ".join(statuslist)]) for statuslist in [rens] if len(rens)>0];\
+    copreport=["Copied ".join(["",", ".join(statuslist)]) for statuslist in [cops] if len(cops)>0];\
+    updreport=["Updated ".join(["",", ".join(statuslist)]) for statuslist in [upds] if len(upds)>0];\
+    report=[". ".join(stats) for stats in [modreport,addreport,delreport,renreport,copreport,updreport] if len(stats)>0];\
+    print ". ".join(report)')";
+    unset gitnews;
+    echo "$gitreport";
+}
+function gitqp       {
+    git add .;
+    commitment="$(gnews)";
+    git commit -m "$commitment";
+    git push origin master;
+}
