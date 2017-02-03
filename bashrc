@@ -82,6 +82,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # some more ls aliases
+alias range_cp='/var/storage/shared/mscog/t-jouesa/dotfiles/range_cp.sh'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
@@ -188,3 +189,4 @@ function gitqp       {
     git commit -m "$commitment";
     git push origin master;
 }
+
