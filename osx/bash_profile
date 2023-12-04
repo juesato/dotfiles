@@ -17,3 +17,6 @@ if [ -f '/Users/juesato/google-cloud-sdk/path.bash.inc' ]; then . '/Users/juesat
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/juesato/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/juesato/google-cloud-sdk/completion.bash.inc'; fi
+
+# Turn off Mac zsh warning
+export BASH_SILENCE_DEPRECATION_WARNING=1
